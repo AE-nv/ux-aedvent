@@ -10,6 +10,8 @@ artifact on artifacts.ae.be; once a day is published here it never changes.
 
 1. In the authoring artifact, open **Planning** and click **Exporteer voor site** next to the day. This downloads
    `aedvent-day-NN.json`.
+   Or from Claude Code with the AE Workspace connector: ask Claude to read the artifact's `calendar` list, then
+   `node scripts/export-from-claude.mjs --day 5` writes the same file from that result.
 2. From this repo, with a clean working tree:
 
    ```sh

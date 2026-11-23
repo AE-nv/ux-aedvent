@@ -8,6 +8,11 @@ artifact on artifacts.ae.be; once a day is published here it never changes.
 
 ## Publishing a day
 
+In Claude Code (with the AE Workspace connector), from this repo: `/publish-aedvent 5`. The skill in
+`.claude/skills/publish-aedvent/` runs the steps below, asks for a go before pushing, and checks the live page.
+
+By hand:
+
 1. In the authoring artifact, open **Planning** and click **Exporteer voor site** next to the day. This downloads
    `aedvent-day-NN.json`.
    Or from Claude Code with the AE Workspace connector: ask Claude to read the artifact's `calendar` list, then

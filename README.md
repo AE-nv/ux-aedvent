@@ -23,7 +23,8 @@ artifact on artifacts.ae.be; once a day is published here it never changes.
    [Post Inspector](https://www.linkedin.com/post-inspector/), then post the UTM link the script printed.
 
 The script refuses a day before its date (Brussels time), a day that is already published, and a dirty working tree.
-`--rehearsal` allows an early day for a test run; it is marked in `manifest.json` and may be removed again.
+`--rehearsal` allows an early day for a test run; it is marked in `manifest.json` and is removed again with
+`node scripts/unpublish.mjs --day N --push` (rehearsal days only). **Day 1 is currently a rehearsal: remove it before 1 December.**
 
 ## Guard
 

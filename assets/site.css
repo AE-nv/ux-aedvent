@@ -1,0 +1,33 @@
+:root {
+  --orange: #ff8c00; --orange-dark: #aa5500; --brown: #301704; --brown-2: #965f5f;
+  --off-white: #f5f5ee; --beige: #ebecdd; --white: #fff;
+  --bg: var(--off-white); --fg: var(--brown); --card: var(--white); --muted: var(--brown-2); --door: var(--beige);
+  --gradient: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  --heading: Cambria, Georgia, serif; --text: "Avenir Next LT Pro", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #241103; --fg: var(--off-white); --card: var(--brown); --muted: var(--beige); --door: #3d2010; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1.05rem/1.65 var(--text); }
+a { color: var(--orange-dark); }
+@media (prefers-color-scheme: dark) { a { color: var(--orange); } }
+main, .foot { max-width: 46rem; margin: 0 auto; padding: 0 16px; }
+h1, h2 { font-family: var(--heading); line-height: 1.2; }
+h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0.2em 0; }
+.home h1 { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; margin-top: 1.5rem; }
+.lede, .byline, .kicker, .foot { color: var(--muted); }
+.kicker { margin: 2rem 0 0; font-size: 0.9rem; }
+.kicker a { color: inherit; }
+.byline { margin-top: 0; }
+.cover { width: 100%; height: auto; border-radius: 8px; margin: 1rem 0; display: block; }
+blockquote { margin: 1.2em 0; padding: 0.2em 1em; border-left: 4px solid var(--orange); font-family: var(--heading); font-size: 1.15em; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); gap: 0.6rem; margin: 2rem 0; }
+.door { aspect-ratio: 1; border-radius: 8px; background: var(--door); display: flex; flex-direction: column; justify-content: space-between; padding: 0.6rem; text-decoration: none; color: var(--muted); }
+.door .n { font: 700 1.6rem var(--heading); }
+.door.open { background: var(--gradient); color: var(--white); }
+.door.open:hover, .door.open:focus-visible { outline: 3px solid var(--brown); outline-offset: 2px; }
+.door .t { font-size: 0.8rem; line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+.more { margin: 2rem 0; font-weight: 600; }
+.foot { margin: 3rem auto 2rem; font-size: 0.85rem; }

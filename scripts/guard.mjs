@@ -34,7 +34,7 @@ if (base && !/^0+$/.test(base)) {
   for (const [day, m] of Object.entries(baseManifest)) {
     const now = manifest[day];
     if (!now) { if (!m.rehearsal) errors.push(`day ${day} was removed`); continue; }
-    if (now.sha256 !== m.sha256 && !titles.some((t) => t.toLowerCase().startsWith(`correction day ${day}`)))
+    if (now.sha256 !== m.sha256 && !titles.some((t) => new RegExp(`^correction day ${day}\\b`, "i").test(t)))
       errors.push(`day ${day} changed; published days only change through a commit titled "correction day ${day}"`);
   }
 }

@@ -2,8 +2,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import { fileURLToPath } from "node:url";
 
-export const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")), "..");
+export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const CONFIG = JSON.parse(fs.readFileSync(path.join(ROOT, "site.config.json"), "utf8"));
 export const DAYS = 24;
 export const pad = (n) => String(n).padStart(2, "0");
@@ -19,14 +20,19 @@ export const isReleased = (day) => brusselsToday() >= releaseDate(day);
 // ---- Text ---------------------------------------------------------------------------------------
 export const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-// Escape first, then turn **bold**, *italic* and ++underline++ into tags. Marks never span blocks.
+// **bold**, *italic* and ++underline++, parsed exactly like the authoring artifact's runs() (single pass,
+// no nesting), so the site shows what the author saw. Every run is escaped.
+const MARKS = /\*\*([^*]+)\*\*|\*([^*]+)\*|\+\+([^+]+)\+\+/g;
 export function inline(text) {
-  return esc(text)
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\+\+(.+?)\+\+/g, "<u>$1</u>")
-    .replace(/\*(.+?)\*/g, "<em>$1</em>");
+  return String(text ?? "").replace(MARKS, "\0$&\0").split("\0").map((part) => {
+    const m = /^(?:\*\*([^*]+)\*\*|\*([^*]+)\*|\+\+([^+]+)\+\+)$/.exec(part);
+    if (!m) return esc(part);
+    if (m[1] !== undefined) return `<strong>${esc(m[1])}</strong>`;
+    if (m[2] !== undefined) return `<em>${esc(m[2])}</em>`;
+    return `<u>${esc(m[3])}</u>`;
+  }).join("");
 }
-export const plain = (text) => String(text ?? "").replace(/\*\*|\+\+|\*/g, "");
+export const plain = (text) => String(text ?? "").replace(MARKS, (_, b, i, u) => b ?? i ?? u);
 
 export function blocksOf(entry) {
   if (Array.isArray(entry.blocks) && entry.blocks.length) return entry.blocks;

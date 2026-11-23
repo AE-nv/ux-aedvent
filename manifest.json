@@ -1,1 +1,11 @@
-{}
+{
+  "1": {
+    "title": "test",
+    "authorName": "Jeroen Haegebaert",
+    "cover": "cover.webp",
+    "sha256": "ff5e08a1af3a4e34f6ac12bf398d2cb5b82da8c1f388158fe29cfbfd1c334bce",
+    "publishedAt": "2026-11-23T15:15:26.619Z",
+    "entryId": "2516071184879424401-b661a48efea3",
+    "rehearsal": true
+  }
+}
